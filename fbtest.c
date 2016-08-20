@@ -79,19 +79,27 @@ void quit() {
 
 int main(int argc, char* argv[])
 {
+    struct timespec delay;
+    struct timespec delay_rt;
+
+    delay.tv_sec = 0;
+    delay.tv_nsec = 200;
+
     signal(SIGINT, quit);
     init_stuff();
 
     printf("\e[?25l"); /* hide the cursor */
 
-    static struct timespec delay = {(time_t) 0, (long) 00000};
-
+    //UPDATE_SCREEN(0);
     for (;;) {
         //nanosleep(&delay, 0);
         //sleep(1);
         //CLEAR_SCREEN(PACK_RGB(0, 0, 0));
+        //CLEAR_SCREEN(0);
         line_test();
         checkers_test();
+        //UPDATE_SCREEN();
+        nanosleep(&delay, &delay_rt);
         UPDATE_SCREEN();
     }
 

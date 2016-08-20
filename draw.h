@@ -17,14 +17,14 @@
 
 void line_test()
 {
-    static unsigned short color = PACK_RGB(0, 16, 31);
+    static unsigned short color = PACK_RGB(0, 31, 8);
     static float __t;
     static float A = 0;
     static float A_prev;
-    static float dA = .5f;
+    static float dA = 5.f;
     static int n = 3;
 
-    __t += 0.001f;
+    __t += 0.0004f;
 
     int x2;
     int y2;
@@ -33,10 +33,10 @@ void line_test()
     A += dA;
 
     if ((A_prev > 0 && A <= 0) || (A > 0 && A_prev <= 0)) {
-        n = 3 + rand() % 7;
+        n = 3 + rand() % 2;
     }
 
-    if (A > __screen.yc || A < -1 * __screen.yc) {
+    if (A > 13 * __screen.yc || A < -19 * __screen.yc) {
         dA = -dA;
     }
 
@@ -54,7 +54,7 @@ void line_test()
 
         line_t line = {x1, x2, y1, y2, color};
 
-        draw_line(&line, &putpixel_crop);
+        draw_line(&line, &putpixel_fold);
     }
 }
 
@@ -62,7 +62,7 @@ void line_test()
 
 void checkers_test()
 {
-    static unsigned short color = PACK_RGB(31, 31, 0);
+    static unsigned short color = PACK_RGB(0, 8, 8);
     static float __t;
 
     static float dx;
@@ -70,10 +70,10 @@ void checkers_test()
     static float x_offset = 0;
     static float y_offset = 0;
 
-    __t -= 0.001f;
+    __t -= 0.007f;
 
-    dx = 0.5f * sin(__t);
-    dy = 0.5f * cos(__t);
+    dx = 1.5f * sin(__t);
+    dy = 1.5f * cos(__t);
 
     x_offset += dx;
     y_offset += dy;

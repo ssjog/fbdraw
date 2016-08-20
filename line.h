@@ -2,9 +2,9 @@
 #define __LINE_H__
 
 static inline void make_deltas(short xlen, short ylen, float* dx, float* dy) {
-    register float sum = xlen + ylen;
-    *dx = ylen == 0 ? 1: xlen/sum;
-    *dy = xlen == 0 ? 1: ylen/sum;
+    register float inv_sum = 1.f / (xlen + ylen);
+    *dx = ylen == 0 ? 1: xlen * inv_sum;
+    *dy = xlen == 0 ? 1: ylen * inv_sum;
 }
 
 typedef struct {
