@@ -150,10 +150,10 @@ void line_test(int color)
 	static float __t;
 	static float A = 200.f;
 	static float A_prev;
-	static float dA = 1.f;
+	static float dA = 0.5f;
 	static int n = 3;
 
-	__t += 0.003f;
+	__t += 0.001f;
 
 	int x2;
 	int y2;
@@ -199,7 +199,7 @@ void draw() {
 	struct timespec delay_rt;
 
 	delay.tv_sec = 0;
-	delay.tv_nsec = 100;
+	delay.tv_nsec = 20000000;
 
 	int maxx = vinfo.xres - 1;
 	int maxy = vinfo.yres - 1;
@@ -211,7 +211,7 @@ void draw() {
 	for (;;) {
 		//memset(fbp, BLACK, finfo.smem_len);
 		line_test(255);
-		
+		nanosleep(&delay, 0);
 		// smooth
 		for (int y = 1; y < maxy; ++y) {
 			for (int x = 1; x < maxx; ++x) {
@@ -239,7 +239,7 @@ void draw() {
 		}
 	}
 
-	//nanosleep(&delay, 0);
+
 	//memset(fbp, BLACK, finfo.smem_len);
 }
 
